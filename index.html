@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Александра Радюкевич — backend-разработчик</title>
+<meta name="description" content="Backend-разработчик. Python, FastAPI, PostgreSQL, интеграции внешних API, Telegram Mini Apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#000000;
+    --soft:#6B6B6B;
+    --line:#000000;
+    --f:'Inter',Arial,Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);
+    font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  a{color:inherit}
+  a:focus-visible{outline:2px solid #000;outline-offset:3px}
+
+  /* большие заголовки */
+  .huge{
+    font-weight:900;text-transform:uppercase;letter-spacing:-.035em;
+    line-height:.92;margin:0
+  }
+  .h-xl{font-size:clamp(40px,9vw,104px)}
+  .h-l{font-size:clamp(28px,5.4vw,58px)}
+  .h-m{font-size:clamp(22px,3.4vw,36px)}
+
+  .meta{
+    font-size:12.5px;letter-spacing:.01em;color:var(--ink);margin:10px 0 0
+  }
+  .meta b{font-weight:700}
+  .soft{color:var(--soft)}
+
+  /* ——— шапка ——— */
+  .top{padding:44px 0 30px}
+  .name-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+  .role{
+    font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+    padding-bottom:6px
+  }
+  .intro{
+    margin:26px 0 0;max-width:64ch;font-size:15px;line-height:1.55
+  }
+
+  /* ——— блок: фото + резюме ——— */
+  .about{
+    display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;
+    padding:38px 0 54px;border-top:2px solid var(--line);margin-top:34px
+  }
+  @media(max-width:800px){.about{grid-template-columns:1fr;gap:34px}}
+  .photo{position:relative;align-self:start}
+  .photo img{width:100%;display:block;filter:grayscale(1) contrast(1.03)}
+  .photo figcaption{
+    position:absolute;left:0;right:0;top:16%;text-align:center;color:#fff;
+    font-weight:900;text-transform:uppercase;letter-spacing:.02em;
+    font-size:clamp(18px,2.6vw,30px);mix-blend-mode:difference
+  }
+
+  .rblock{margin-bottom:34px}
+  .rblock:last-child{margin-bottom:0}
+  .rows{margin-top:12px}
+  .row{
+    display:flex;justify-content:space-between;gap:18px;
+    padding:7px 0;border-bottom:1px solid rgba(0,0,0,.13)
+  }
+  .row span:last-child{white-space:nowrap;color:var(--soft)}
+  .list{margin:12px 0 0;padding:0;list-style:none}
+  .list li{padding:6px 0;border-bottom:1px solid rgba(0,0,0,.13)}
+  .list li b{font-weight:700}
+
+  /* ——— проекты ——— */
+  section{padding:54px 0;border-top:2px solid var(--line)}
+  .case{padding:34px 0;border-top:1px solid rgba(0,0,0,.2)}
+  .case:first-of-type{border-top:none;padding-top:6px}
+  .case-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px}
+  .tag{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--soft)
+  }
+  .case-body{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;margin-top:22px}
+  @media(max-width:800px){.case-body{grid-template-columns:1fr;gap:24px}}
+  .lbl{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;
+    margin:0 0 10px
+  }
+  ul.pts{margin:0;padding-left:16px}
+  ul.pts li{margin-bottom:8px;font-size:14px}
+  .stack{display:flex;flex-wrap:wrap;gap:5px}
+  .chip{font-size:11.5px;letter-spacing:.02em;border:1px solid var(--ink);padding:3px 9px}
+  .links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .lnk{
+    display:inline-block;text-decoration:none;font-size:12.5px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.1em;padding:10px 18px;border:1px solid var(--ink)
+  }
+  .lnk:hover{background:var(--ink);color:#fff}
+  .lnk.fill{background:var(--ink);color:#fff}
+  .lnk.fill:hover{background:#fff;color:var(--ink)}
+
+  .shot{
+    margin-top:24px;border:1px dashed rgba(0,0,0,.45);min-height:180px;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;
+    font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);line-height:2
+  }
+  .shot img{max-width:100%;display:block}
+
+  /* ——— ai ——— */
+  .ai{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px}
+  @media(max-width:800px){.ai{grid-template-columns:1fr}}
+  .ai .item{padding:18px 0;border-top:1px solid rgba(0,0,0,.2)}
+  .ai h3{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;margin:0 0 8px}
+  .ai p{margin:0;font-size:14px}
+
+  footer{padding:48px 0 70px;border-top:2px solid var(--line)}
+  .contacts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:16px;font-size:14px}
+  .contacts a{text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <div class="name-row">
+      <h1 class="huge h-xl">Александра<br>Радюкевич</h1>
+      <p class="role">Backend-разработчик · Санкт-Петербург · удалённо</p>
+    </div>
+    <p class="intro">В разработке с 2024 года: фриланс на Python и Shopify, преподавание Python,
+      около 10 месяцев в найме backend-разработчиком. Работаю с real-time обработкой данных,
+      интеграциями внешних API (блокчейн, криптобиржи) и модульной архитектурой сервисов.</p>
+  </div>
+
+  <div class="about">
+    <figure class="photo" style="margin:0">
+      <img src="photo.png" alt="Александра Радюкевич">
+      <figcaption>Обо мне</figcaption>
+    </figure>
+
+    <div>
+      <div class="rblock">
+        <h2 class="huge h-l">Опыт</h2>
+        <div class="rows">
+          <div class="row"><span><b>PayBerry</b> — backend-разработчик</span><span>авг. 2025 — май 2026</span></div>
+          <div class="row"><span><b>Фриланс</b> — Python, Shopify, преподавание</span><span>с 2024</span></div>
+        </div>
+        <ul class="list" style="margin-top:14px">
+          <li>Стабилизировала парсинг Solana-транзакций, подключила Helius API — пропущенных событий стало примерно на 30% меньше.</li>
+          <li>Настроила обработку нескольких тысяч событий в день: фильтрация, поиск новых токенов, сбор метрик по ним.</li>
+          <li>Сделала ротацию прокси под каждый API-ключ — блокировок стало примерно вдвое меньше.</li>
+          <li>Написала воркер сохранения истории цен, который сам поднимается после сбоя: простой сбора данных сократился с часов до минут.</li>
+        </ul>
+      </div>
+
+      <div class="rblock">
+        <h2 class="huge h-l">Навыки</h2>
+        <ul class="list">
+          <li><b>Языки</b> — Python, Go, SQL</li>
+          <li><b>Backend</b> — FastAPI, REST API, asyncio, HTTPX, слоистая архитектура</li>
+          <li><b>Данные</b> — PostgreSQL, TimescaleDB, Redis, SQLAlchemy, Alembic</li>
+          <li><b>Инфраструктура</b> — Docker, Docker Compose, n8n, воркеры, cron, Git</li>
+          <li><b>Интеграции</b> — Solana / Helius, CoinGecko, BingX, ByBit, вебхуки, HMAC-подпись</li>
+        </ul>
+      </div>
+
+      <div class="rblock">
+        <h2 class="huge h-l">Языки</h2>
+        <ul class="list">
+          <li>Русский — родной</li>
+          <li>Английский — B2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="huge h-xl" style="margin-bottom:30px">Проекты</h2>
+
+    <!-- FREEDOM -->
+    <article class="case">
+      <div class="case-head">
+        <h3 class="huge h-l">FREEDOM</h3>
+        <span class="tag">Заказ на фрилансе · fullstack</span>
+      </div>
+      <p style="margin:12px 0 0;max-width:62ch">Telegram Mini App для репетиторов, психологов и консультантов:
+        клиенты, занятия, материалы, видеозвонки, напоминания и оплата подписки — внутри Telegram.</p>
+
+      <div class="case-body">
+        <div>
+          <p class="lbl">Что сделано</p>
+          <ul class="pts">
+            <li>Вход без паролей и регистрации: Telegram передаёт подписанные данные пользователя, сервер проверяет подпись.</li>
+            <li>Оплата подписки через ЮKassa — доступ включается автоматически по уведомлению об оплате.</li>
+            <li>Напоминания о занятии за сутки и за час обеим сторонам, по расписанию на APScheduler.</li>
+            <li>Материалы хранятся в закрытом Telegram-канале через Bot API, без платного облачного хранилища.</li>
+            <li>Видеозвонок на LiveKit поднимается под конкретное занятие.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="lbl">Стек</p>
+          <div class="stack">
+            <span class="chip">React</span><span class="chip">Zustand</span><span class="chip">Vite</span>
+            <span class="chip">FastAPI</span><span class="chip">SQLAlchemy async</span><span class="chip">Alembic</span>
+            <span class="chip">aiogram</span><span class="chip">PostgreSQL</span><span class="chip">LiveKit</span>
+            <span class="chip">ЮKassa</span><span class="chip">Vercel + Render</span>
+          </div>
+          <p class="lbl" style="margin-top:24px">Мой объём</p>
+          <p style="margin:0">Фронтенд, бэкенд и бот целиком: от схемы базы до деплоя и настройки оплаты.</p>
+        </div>
+      </div>
+
+      <div class="shot">
+        <!-- ЗАМЕНИ на: <img src="shots/freedom.png" alt="Экраны FREEDOM"> -->
+        сюда — 2–3 экрана приложения<br>список клиентов · карточка занятия · оплата
+      </div>
+
+      <div class="links">
+        <!-- ВПИШИ адрес бота вместо t.me/ -->
+        <a class="lnk fill" href="https://t.me/">Открыть бота</a>
+        <a class="lnk" href="https://github.com/asrradyuk/freedom">Код на GitHub</a>
+      </div>
+    </article>
+
+    <!-- TG-SUPPORT -->
+    <article class="case">
+      <div class="case-head">
+        <h3 class="huge h-l">Поддержка в Telegram</h3>
+        <span class="tag">Готовое решение · разворачивается под своего бота</span>
+      </div>
+      <p style="margin:12px 0 0;max-width:62ch">Система поддержки, которую владелец бизнеса ставит себе сам:
+        подставляет токен своего бота и Telegram-id операторов — и получает рабочее место поддержки.
+        Клиенты пишут боту, операторы отвечают из мини-приложения.</p>
+
+      <div class="case-body">
+        <div>
+          <p class="lbl">Что сделано</p>
+          <ul class="pts">
+            <li>Два оператора не могут ответить в один диалог: чат берётся в работу одним атомарным запросом к базе, второму сразу приходит отказ.</li>
+            <li>Писать может только тот, за кем закреплён диалог. Чат возвращается в общий пул или закрывается — статусы показывают, кто за что отвечает.</li>
+            <li>Доступ только у операторов из списка: подпись Telegram проверяется на сервере, чужой аккаунт её не пройдёт.</li>
+            <li>Три независимых сервиса — бот, API, интерфейс оператора. Поднимается одной командой, есть режим разработки без реального бота.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="lbl">Стек</p>
+          <div class="stack">
+            <span class="chip">aiogram</span><span class="chip">FastAPI</span><span class="chip">SQLAlchemy</span>
+            <span class="chip">React</span><span class="chip">Vite</span><span class="chip">Docker Compose</span>
+          </div>
+          <p class="lbl" style="margin-top:24px">Границы</p>
+          <p style="margin:0">Список чатов обновляется опросом раз в пару секунд — для объёмов поддержки этого достаточно. Что менять первым при росте нагрузки, описано в README.</p>
+        </div>
+      </div>
+
+      <div class="shot">
+        <!-- ЗАМЕНИ на: <img src="shots/support.png" alt="Интерфейс оператора"> -->
+        сюда — экран оператора: очередь чатов и переписка
+      </div>
+
+      <div class="links">
+        <a class="lnk fill" href="https://github.com/asrradyuk/tg-support">Код на GitHub</a>
+      </div>
+    </article>
+
+    <!-- ACCESS CONTROL -->
+    <article class="case">
+      <div class="case-head">
+        <h3 class="huge h-l">Своя система доступов</h3>
+        <span class="tag">Бэкенд-сервис · 25 тестов</span>
+      </div>
+      <p style="margin:12px 0 0;max-width:62ch">Вход в систему и права доступа, написанные вручную —
+        без готовых механизмов Django. Задача была разобрать тему до основания, а не подключить библиотеку.</p>
+
+      <div class="case-body">
+        <div>
+          <p class="lbl">Что сделано</p>
+          <ul class="pts">
+            <li>Права описаны матрицей «роль × ресурс» с двумя уровнями: только своё или всё подряд. Администратор правит матрицу на ходу, без изменений в коде.</li>
+            <li>Разделены случаи «не знаю, кто ты» и «знаю, но нельзя» — это разные ответы сервера.</li>
+            <li>Выход из системы работает честно даже с самодостаточными токенами: отозванный перестаёт действовать сразу.</li>
+            <li>Удаление аккаунта мягкое: данные остаются, вход закрывается.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="lbl">Стек</p>
+          <div class="stack">
+            <span class="chip">Python 3.12</span><span class="chip">Django 5.2</span><span class="chip">DRF</span>
+            <span class="chip">JWT</span><span class="chip">bcrypt</span><span class="chip">PostgreSQL</span><span class="chip">pytest</span>
+          </div>
+          <p class="lbl" style="margin-top:24px">Проверка</p>
+          <p style="margin:0">25 тестов: сценарии входа, разграничение прав и смена правил администратором на лету.</p>
+        </div>
+      </div>
+
+      <div class="links">
+        <a class="lnk fill" href="https://github.com/asrradyuk/access-control-service">Код на GitHub</a>
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2 class="huge h-xl" style="margin-bottom:24px">AI и автоматизация</h2>
+    <div class="ai">
+      <div class="item">
+        <h3>Бот анализа скриншотов</h3>
+        <p>Разбирает скриншот переписки и определяет, где чьи сообщения. Один признак — цвет или выравнивание — ошибается на нестандартных темах оформления, поэтому решение принимается голосованием по нескольким признакам. Собрано на n8n, доступ к модели через прокси-провайдера. Работа принята заказчиком.</p>
+      </div>
+      <div class="item">
+        <h3>Память пользователя в боте</h3>
+        <p>Отдельный процесс достаёт из диалога факты о человеке и обновляет его профиль в базе, а основной сценарий читает профиль перед ответом — бот перестаёт спрашивать одно и то же дважды.</p>
+      </div>
+      <div class="item">
+        <h3>Инструменты</h3>
+        <p>Claude и Cursor в ежедневной разработке, n8n для сценариев, MCP для подключения модели к внешним данным.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2 class="huge h-m">Контакты</h2>
+    <div class="contacts">
+      <a href="mailto:asya.pinkman@yandex.ru">asya.pinkman@yandex.ru</a>
+      <a href="https://github.com/asrradyuk">github.com/asrradyuk</a>
+      <!-- ВПИШИ свой ник -->
+      <a href="https://t.me/">Telegram</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
